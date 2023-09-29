@@ -16,7 +16,7 @@ type OrderService interface {
 	Add(newOrderRequest *dto.NewOrderRequest) (*dto.NewOrderResponse, errs.Error)
 	Fetch() (*dto.GetOrdersResponse, errs.Error)
 	Edit(orderId int, updateOrderRequest *dto.NewOrderRequest) (*dto.NewOrderResponse, errs.Error)
-	Remove(orderId int) errs.Error
+	Remove(orderId int) (*dto.GetOrdersResponse, errs.Error)
 }
 
 type OrderServiceImpl struct {
@@ -185,23 +185,27 @@ func (orderServiceImpl *OrderServiceImpl) Fetch() (*dto.GetOrdersResponse, errs.
 }
 
 // Remove implements OrderService.
-func (orderServiceImpl *OrderServiceImpl) Remove(orderId int) errs.Error {
+func (orderServiceImpl *OrderServiceImpl) Remove(orderId int) (*dto.GetOrdersResponse, errs.Error) {
 
 	order, err := orderServiceImpl.orderRepository.ReadOrderById(orderId)
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if order.OrderId != orderId {
-		return err
+		return nil, err
 	}
 
 	err = orderServiceImpl.orderRepository.Delete(orderId)
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return &dto.GetOrdersResponse{
+		StatusCode: http.StatusOK,
+		Message:    "order successfully deleted",
+		Data:       nil,
+	}, nil
 }
