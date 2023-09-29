@@ -127,7 +127,7 @@ func (orderHandler *orderHandler) DeleteOrder(ctx *gin.Context) {
 	orderId, _ := strconv.Atoi(ctx.Param("orderId"))
 
 	// call method Remove
-	err := orderHandler.OrderService.Remove(orderId)
+	response, err := orderHandler.OrderService.Remove(orderId)
 
 	// validate and response error
 	if err != nil {
@@ -136,7 +136,5 @@ func (orderHandler *orderHandler) DeleteOrder(ctx *gin.Context) {
 	}
 
 	// response success
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "delete order success",
-	})
+	ctx.JSON(http.StatusOK, response)
 }
