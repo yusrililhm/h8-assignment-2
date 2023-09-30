@@ -18,7 +18,7 @@ var (
 func handleDatabaseConnection() {
 	appConfig := config.GetAppConfig()
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		appConfig.DBHost, appConfig.DBPort, appConfig.DBUser, appConfig.DBUser, appConfig.DBName,
+		appConfig.DBHost, appConfig.DBPort, appConfig.DBUser, appConfig.DBPassword, appConfig.DBName,
 	)
 
 	db, err = sql.Open(appConfig.Dialect, psqlInfo)
