@@ -1,13 +1,14 @@
 package handler
 
 import (
-	"h8-assignment-2/infra/config"
-	"h8-assignment-2/infra/database"
-	"h8-assignment-2/repository/item_repository/item_pg"
-	"h8-assignment-2/repository/order_repository/order_pg"
+	"h8-assignment-2/docs"
 	"h8-assignment-2/service"
 
-	_ "h8-assignment-2/docs"
+	"h8-assignment-2/infra/config"
+	"h8-assignment-2/infra/database"
+
+	"h8-assignment-2/repository/item_repository/item_pg"
+	"h8-assignment-2/repository/order_repository/order_pg"
 
 	"github.com/gin-gonic/gin"
 
@@ -15,16 +16,9 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-// @title Order API Specs
-// @version 1.0
-// @description Tugas ke 2 Kampus Merdeka
-//
 // @contact.name Yusril Ilham Kholid
 // @contact.email yusrililham@gmail.com
 // @contact.url http://github.com/yusrililhm
-//
-// @host localhost:8080
-// @BasePath /
 func StartApplication() {
 	app := gin.Default()
 
@@ -38,6 +32,14 @@ func StartApplication() {
 	db := database.GetDatabaseInstance()
 
 	// swagger
+	docs.SwaggerInfo.Title = "Order API Specs"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Description = "Assignment 2 MSIB x Hacktiv8"
+
+	docs.SwaggerInfo.BasePath = "/"
+	docs.SwaggerInfo.Schemes = append(docs.SwaggerInfo.Schemes, "https", "http")
+	docs.SwaggerInfo.Host = "localhost:8080"
+
 	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggoFiles.Handler))
 
 	itemRepository := item_pg.NewItemRepositoryImpl(db)
