@@ -5,6 +5,12 @@ Name : Yusril Ilham Kholid
 
 No. Peserta : GLNG-KS07-04
 
+## Entity Relationship Diagram
+![alt text](assets/erd.png)
+
+## Swagger UI
+![alt text](assets/swagger.png)
+
 ## Setup .env file
 ```
 DB_USER=
