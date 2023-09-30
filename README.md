@@ -6,12 +6,16 @@ Name : Yusril Ilham Kholid
 No. Peserta : GLNG-KS07-04
 
 ## Entity Relationship Diagram
+
+The relationship is one to many, one order can have many items. The DBMS used this application is PostgreSQL.
+
 ![alt text](assets/erd.png)
 
 ## Swagger UI
 ![alt text](assets/swagger.png)
 
 ## Setup .env file
+Before you run this application please setup your .env file.
 ```
 DB_USER=
 DB_PASSWORD=
@@ -21,6 +25,7 @@ PORT=
 ```
 
 ## Endpoints
+Http method and path you can use for this application
 | No. | Method |        Path        |       Description        |
 |-----|--------|--------------------|--------------------------|
 | 1   | POST   |  /orders           | Create new order         |
@@ -29,6 +34,9 @@ PORT=
 | 4   | DELETE |  /orders/{id}      | Delete order by order id |
 
 ## Create Order
+
+Endpoint : [POST] /orders
+
 Body request :
 ```json
 {
@@ -44,7 +52,32 @@ Body request :
 }
 ```
 
+Response Success (201) :
+```json
+{
+  "statusCode": 201,
+  "message": "string",
+  "data": "nil"
+}
+```
+
+## Get Orders
+
+Endpoint : [GET] /orders
+
+Response Success (200) :
+```json
+{
+  "statusCode": 200,
+  "message": "string",
+  "data": []
+}
+```
+
 ## Update Order
+
+Endpoint : [PUT] /orders/{id}
+
 Param required : 
 ```
 orderId int
@@ -65,9 +98,38 @@ Body request :
 }
 ```
 
+Response Success (200) :
+```json
+{
+  "statusCode": 200,
+  "message": "string",
+  "data": "nil"
+}
+```
+
+## Delete Order
+
+Endpoint : [DELETE] /orders/{id}
+
+Param required : 
+```
+orderId int
+```
+
+Response Success (200) :
+```json
+{
+  "statusCode": 200,
+  "message": "string",
+  "data": "nil"
+}
+```
+
 ## Run Application
 ```sh
   $ go run main.go
 ```
 
+## Run Swagger UI
+After run go program you can run in browser :
 http://localhost:8080/swagger/index.html
